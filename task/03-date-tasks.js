@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return new Date(date.getFullYear(), 1, 29).getDate() === 29;
 }
 
 
@@ -76,7 +76,19 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    function twoDig(n){
+      const temp = Math.floor(n);
+      return temp > 9 ? "" + temp: "0" + temp;
+    }
+    function fiveDig(n){
+      const temp = n.toFixed(3);
+      return +temp > 9 ? "" + temp: "0" + temp;
+    }
+    const diff = endDate - startDate;
+    const hours = diff / 3600000;
+    const minutes = diff % 3600000 / 60000;
+    const seconds = diff % 3600000 % 60000 / 1000;
+    return `${twoDig(hours)}:${twoDig(minutes)}:${fiveDig(seconds)}`;
 }
 
 
