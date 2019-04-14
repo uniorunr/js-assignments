@@ -127,7 +127,7 @@ function canDominoesMakeRow(dominoes) {
  *     The range syntax is to be used only for, and for every range that expands to more than two values.
  *
  * @params {array} nums
- * @return {bool}
+ * @return {string}
  *
  * @example
  *
@@ -137,7 +137,16 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    nums.forEach((item, index) => {
+        let j = index;
+        while (nums[j] === nums[j + 1] - 1) {
+            j++;
+        }
+        if (j - index > 1) {
+            nums.splice(index, j - index + 1, `${nums[index]}-${nums[j]}`);
+        }
+    });
+    return nums.join();
 }
 
 module.exports = {
